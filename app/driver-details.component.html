@@ -1,0 +1,38 @@
+<!-- new syntax for ng-if -->
+<section *ngIf="driver">
+  <section>
+    <h2>You selected: {{driver.driverName}} {{driver.driverSurname}}</h2>
+    <h3>Description</h3>
+    <p>
+      {{driver.driverName}} {{driver.surName}}
+    </p>
+  </section>
+  <section>
+    <form (ngSubmit)="saveDriverDetails()" #driverForm="ngForm">
+        <div>
+            <label for="driverName">Name: </label>
+            <input type="text" name="driverName" required [(ngModel)]="driver.driverName" #name="ngModel">
+            <div [hidden]="name.valid || name.pristine" class="error">
+                Name is required my good sir/lady!
+            </div>
+      </div>
+      <div>
+        <label for="driverSurname">Surname: </label>
+        <input type="text" name="driverSurname" [(ngModel)]="driver.driverSurname">
+      </div>
+      <div>
+        <label for="driverCountry">Country: </label>
+        <input type="text" name="driverCountry" [(ngModel)]="driver.driverCountry">
+      </div>
+      <div>
+        <label for="driverTeam">Team:</label>
+        <select name="driverTeam" [(ngModel)]="driver.driverTeam">
+          <option *ngFor="let team of teams" [value]="team">{{team}}</option>
+        </select>
+      </div>
+      <button type="submit" [disabled]="!driverForm.form.valid">Save</button>
+    </form>
+  </section>
+
+  <button (click)="gotoDriversList()">Back to drivers list</button>
+<section>
